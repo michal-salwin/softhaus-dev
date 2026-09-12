@@ -383,8 +383,8 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
       nav { padding: 1rem 1.25rem; }
-      .nav-link { display: none; }
-      .nav-cta  { display: none; }
+      nav .nav-right .nav-link { display: none !important; }
+      nav .nav-right .nav-cta  { display: none !important; }
       .ham-btn  { display: flex; }
       .project-card, .project-card.flip { grid-template-columns: 1fr; }
       .project-card.flip .project-visual { order: 0; }
