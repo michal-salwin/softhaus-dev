@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Softhaus — Software House</title>
+  <meta name="description" content="Boutique software house crafting high-quality mobile apps and web products. Based in Poland.">
+  <meta property="og:title" content="Softhaus — Software House">
+  <meta property="og:description" content="We build mobile apps and web products people actually use.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://softhaus.dev">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236366f1'/><text y='24' x='4' font-size='22' font-family='monospace' fill='white'>s.</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:            #07071a;
+      --bg-surface:    #0b0b1f;
+      --bg-card:       #0f0f24;
+      --bg-card-hover: #121228;
+      --accent:        #6366f1;
+      --accent-dim:    rgba(99, 102, 241, 0.15);
+      --accent-light:  #818cf8;
+      --accent-glow:   rgba(99, 102, 241, 0.35);
+      --cyan:          #22d3ee;
+      --cyan-dim:      rgba(34, 211, 238, 0.1);
+      --rose:          #f43f5e;
+      --text:          #f1f5f9;
+      --text-secondary:#94a3b8;
+      --text-muted:    #475569;
+      --border:        rgba(255, 255, 255, 0.07);
+      --border-accent: rgba(99, 102, 241, 0.3);
+      --radius:        20px;
+      --radius-sm:     10px;
+      --max-w:         1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Grid background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99, 102, 241, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─────────────────────────────── NAV ─────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.125rem 2.5rem;
+      background: rgba(7, 7, 26, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .logo-dot { color: var(--accent-light); }
+
+    nav .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a.nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a.nav-link:hover { color: var(--text); }
+
+    .nav-cta {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text) !important;
+      text-decoration: none;
+      padding: 0.5rem 1.125rem;
+      border: 1px solid var(--border-accent);
+      border-radius: 9999px;
+      background: var(--accent-dim);
+      transition: all 0.2s;
+    }
+    .nav-cta:hover {
+      background: rgba(99, 102, 241, 0.25) !important;
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    /* ─────────────────────────────── HERO ─────────────────────────────── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 9rem 2rem 7rem;
+    }
+
+    .hero-orb {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse at center,
+        rgba(99, 102, 241, 0.13) 0%,
+        rgba(34, 211, 238, 0.04) 45%,
+        transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      position: relative;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      border-radius: 9999px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 2.25rem;
+    }
+    .hero-pill-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      animation: blink 2.5s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    h1 {
+      font-size: clamp(2.75rem, 6.5vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 1.02;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent-light) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin: 0 auto 3rem;
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.875rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8125rem 1.875rem;
+      border-radius: 9999px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.22s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #5254cc;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px var(--accent-glow);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: var(--border-accent);
+      background: var(--accent-dim);
+    }
+
+    /* ─────────────────────────────── DIVIDER ─────────────────────────────── */
+    .full-divider {
+      height: 1px;
+      background: var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─────────────────────────────── SECTION ─────────────────────────────── */
+    .section-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 0.875rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.875rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ─────────────────────────────── PROJECT CARDS ─────────────────────────────── */
+    .projects-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.3s, box-shadow 0.3s;
+    }
+    .project-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .project-card:hover {
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+      box-shadow: 0 0 80px rgba(99, 102, 241, 0.06);
+    }
+
+    /* Flip visual on 2nd card */
+    .project-card.flip .project-visual { order: -1; }
+
+    /* ── Info pane ── */
+    .project-info {
+      padding: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .project-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      width: fit-content;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-name {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .project-desc {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 2.25rem;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .btn-site {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.625rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      width: fit-content;
+      transition: all 0.2s;
+      background: transparent;
+    }
+    .btn-site:hover {
+      border-color: var(--border-accent);
+      background: var(--accent-dim);
+      transform: translateY(-1px);
+    }
+    .btn-site svg { flex-shrink: 0; }
+
+    .store-row {
+      display: flex;
+      gap: 0.625rem;
+      flex-wrap: wrap;
+    }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.625rem 1.125rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .store-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    .store-btn svg { flex-shrink: 0; opacity: 0.9; }
+    .store-btn-text { display: flex; flex-direction: column; }
+    .store-btn-sub  { font-size: 0.6rem; color: var(--text-secondary); line-height: 1; margin-bottom: 2px; }
+    .store-btn-name { font-size: 0.85rem; font-weight: 700; line-height: 1.1; }
+
+    /* ── Visual pane ── */
+    .project-visual {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vis-settle {
+      background: radial-gradient(ellipse at 70% 30%, #1b1050 0%, #0d1932 50%, #070714 100%);
+    }
+    .vis-fest {
+      background: radial-gradient(ellipse at 30% 70%, #200d40 0%, #120720 50%, #070714 100%);
+    }
+
+    /* Ambient blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    .blob-1 { width: 220px; height: 220px; top: -60px; right: -40px; background: rgba(99,102,241,0.18); }
+    .blob-2 { width: 160px; height: 160px; bottom: 10px; left: -30px; background: rgba(34,211,238,0.12); }
+    .blob-fest-1 { width: 200px; height: 200px; top: -40px; left: -40px; background: rgba(168,85,247,0.2); }
+    .blob-fest-2 { width: 140px; height: 140px; bottom: 20px; right: 0; background: rgba(244,63,94,0.12); }
+
+    /* Phone frame */
+    .phone {
+      position: relative;
+      z-index: 2;
+      width: 155px;
+      background: #050510;
+      border: 1.5px solid rgba(255,255,255,0.14);
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow:
+        0 24px 64px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      aspect-ratio: 9/19;
+    }
+    .phone::before {
+      content: '';
+      position: absolute;
+      top: 10px; left: 50%;
+      transform: translateX(-50%);
+      width: 44px; height: 4px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 99px;
+      z-index: 10;
+    }
+
+    .phone-screen {
+      position: absolute;
+      inset: 0;
+      padding: 22px 10px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Settle Up screen */
+    .settle-screen { background: linear-gradient(170deg, #121e38 0%, #0b1425 100%); }
+
+    .ss-header { height: 7px; width: 55%; background: rgba(255,255,255,0.28); border-radius: 4px; margin-bottom: 4px; }
+    .ss-sub    { height: 4px; width: 35%; background: rgba(255,255,255,0.1);  border-radius: 4px; margin-bottom: 12px; }
+    .ss-card {
+      border-radius: 8px;
+      padding: 9px;
+      margin-bottom: 5px;
+    }
+    .ss-card-a { background: rgba(99,102,241,0.18); }
+    .ss-card-b { background: rgba(34,211,238,0.1);  }
+    .ss-card-c { background: rgba(99,102,241,0.1);  }
+    .ss-row1 { height: 5px; border-radius: 4px; background: rgba(255,255,255,0.28); margin-bottom: 5px; }
+    .ss-row2 { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.1); }
+    .ss-btn  { margin-top: auto; height: 28px; border-radius: 8px; background: rgba(99,102,241,0.5); }
+
+    /* FestPin screen */
+    .fest-screen { background: linear-gradient(170deg, #150b28 0%, #0b0715 100%); }
+
+    .fs-map {
+      height: 110px;
+      border-radius: 8px;
+      background: rgba(100, 50, 180, 0.12);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+    .fs-map-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+    .fs-pin {
+      position: absolute;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.1);
+    }
+    .fs-pin-a { width:9px;height:9px; background:#a855f7; top:38%; left:44%; box-shadow:0 0 10px #a855f7; }
+    .fs-pin-b { width:7px;height:7px; background:#f43f5e; top:55%; left:62%; box-shadow:0 0 8px #f43f5e; }
+    .fs-pin-c { width:6px;height:6px; background:#6366f1; top:22%; left:25%; box-shadow:0 0 7px #6366f1; }
+    .fs-pin-d { width:5px;height:5px; background:#22d3ee; top:65%; left:30%; box-shadow:0 0 6px #22d3ee; }
+    .fs-row { height: 4px; border-radius:4px; background:rgba(255,255,255,0.18); margin-bottom:4px; }
+    .fs-card { background:rgba(168,85,247,0.12); border-radius:8px; padding:8px; margin-bottom:5px; }
+    .fs-card .fs-row:first-child { width: 65%; }
+    .fs-card .fs-row:last-child  { width: 45%; background:rgba(255,255,255,0.08); }
+
+    /* Floating chips */
+    .chip {
+      position: absolute;
+      z-index: 3;
+      background: rgba(10, 10, 30, 0.88);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .chip strong {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1px;
+    }
+    .chip-tl { top: 22%; left: 8%; }
+    .chip-br { bottom: 18%; right: 6%; }
+    .chip-accent { border-color: var(--border-accent); }
+
+    /* ─────────────────────────────── CONTACT ─────────────────────────────── */
+    .contact-band {
+      position: relative;
+      z-index: 1;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 7rem 2rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .contact-band::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .contact-inner { position: relative; max-width: 560px; margin: 0 auto; }
+
+    .contact-title {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .contact-sub {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      text-decoration: none;
+      padding: 0.875rem 2.25rem;
+      border: 1px solid var(--border-accent);
+      border-radius: 9999px;
+      background: var(--accent-dim);
+      transition: all 0.22s;
+    }
+    .email-link:hover {
+      background: rgba(99,102,241,0.2);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px var(--accent-glow);
+    }
+
+    /* ─────────────────────────────── FOOTER ─────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--text-secondary); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ─────────────────────────────── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 860px) {
+      nav { padding: 1rem 1.25rem; }
+      nav .nav-link { display: none; }
+
+      .project-card,
+      .project-card.flip {
+        grid-template-columns: 1fr;
+      }
+      .project-card.flip .project-visual { order: 0; }
+      .project-info { padding: 2.25rem; }
+      .project-visual { min-height: 260px; }
+
+      .section-wrap { padding: 4.5rem 1.25rem; }
+      .hero { padding: 8rem 1.25rem 5rem; }
+      .contact-band { padding: 5rem 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2.5rem; }
+      .project-name { font-size: 1.625rem; }
+      .store-row { flex-direction: column; }
+      .store-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════ NAV ══════════════════════ -->
+  <nav>
+    <a href="/" class="logo">softhaus<span class="logo-dot">.dev</span></a>
+    <div class="nav-right">
+      <a href="#projects" class="nav-link">Work</a>
+      <a href="#contact" class="nav-cta">Get in touch</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════ HERO ══════════════════════ -->
+  <section class="hero">
+    <div class="hero-orb"></div>
+    <div class="hero-content">
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        Software House · Poland
+      </div>
+      <h1>We build software<br><span class="gradient-text">people actually use.</span></h1>
+      <p class="hero-sub">
+        Boutique software house. We design, build, and ship mobile apps and web products
+        — from the first commit to the App&nbsp;Store and beyond.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+          See our work
+        </a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="full-divider"></div>
+
+  <!-- ══════════════════════ PROJECTS ══════════════════════ -->
+  <div class="section-wrap" id="projects">
+    <p class="section-eyebrow">Our work</p>
+    <h2 class="section-title">Products we've shipped</h2>
+    <p class="section-desc">
+      We take on select projects and see them through — from idea and design
+      to launch and long-term maintenance.
+    </p>
+
+    <div class="projects-stack">
+
+      <!-- ── Let's Settle Up ── -->
+      <div class="project-card" data-observe>
+        <div class="project-info">
+          <span class="project-tag">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+            Mobile App · iOS &amp; Android · PWA
+          </span>
+          <h3 class="project-name">Let's Settle Up!</h3>
+          <p class="project-desc">
+            Free expense-splitting app for groups and friends. Tracks shared costs,
+            calculates the minimum number of transfers needed to clear all debts,
+            and syncs across every device in real time.
+            All split types — equal, exact, percentage — with no subscription required.
+          </p>
+          <div class="project-actions">
+            <a href="https://letssettleup.com" target="_blank" rel="noopener" class="btn-site">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              letssettleup.com
+            </a>
+            <div class="store-row">
+              <a href="https://apps.apple.com/app/id6781202515" target="_blank" rel="noopener" class="store-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/>
+                </svg>
+                <div class="store-btn-text">
+                  <span class="store-btn-sub">Download on the</span>
+                  <span class="store-btn-name">App Store</span>
+                </div>
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.expenseshare.expense_share_app" target="_blank" rel="noopener" class="store-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M3.18 23.76A1.98 1.98 0 012 22V2a1.98 1.98 0 011.18-1.76l12.54 11.76zm13.2-12.36L4.02.54 17.22 8.1l-2.73 2.73-2.73-2.73zm2.02 1.28a1.5 1.5 0 010 2.64l-2.54 1.47-3-3 3-3zm-2.54 4.11L4.02 23.46 16.38 15.9l-2.52-2.52 2.52-2.52z"/>
+                </svg>
+                <div class="store-btn-text">
+                  <span class="store-btn-sub">Get it on</span>
+                  <span class="store-btn-name">Google Play</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-visual vis-settle">
+          <div class="blob blob-1"></div>
+          <div class="blob blob-2"></div>
+          <div class="chip chip-tl chip-accent">
+            <strong>€248.50</strong>
+            Split 4 ways
+          </div>
+          <div class="phone">
+            <div class="phone-screen settle-screen">
+              <div class="ss-header"></div>
+              <div class="ss-sub"></div>
+              <div class="ss-card ss-card-a">
+                <div class="ss-row1" style="width:68%"></div>
+                <div class="ss-row2" style="width:42%"></div>
+              </div>
+              <div class="ss-card ss-card-b">
+                <div class="ss-row1" style="width:55%"></div>
+                <div class="ss-row2" style="width:80%"></div>
+              </div>
+              <div class="ss-card ss-card-a">
+                <div class="ss-row1" style="width:72%"></div>
+                <div class="ss-row2" style="width:50%"></div>
+              </div>
+              <div class="ss-card ss-card-c">
+                <div class="ss-row1" style="width:60%"></div>
+                <div class="ss-row2" style="width:35%"></div>
+              </div>
+              <div class="ss-btn"></div>
+            </div>
+          </div>
+          <div class="chip chip-br">
+            <strong>3 transfers</strong>
+            to settle all debts
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FestPin ── -->
+      <div class="project-card flip" data-observe>
+        <div class="project-info">
+          <span class="project-tag">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 00-8 8c0 5.25 8 13 8 13s8-7.75 8-13a8 8 0 00-8-8z"/></svg>
+            Mobile App · iOS &amp; Android · Maps
+          </span>
+          <h3 class="project-name">FestPin</h3>
+          <p class="project-desc">
+            Discover concerts, festivals, and local events on an interactive map —
+            no account, no tracking, no personal data required.
+            FestPin aggregates paid and free events across Poland, with a focus on
+            municipal and civic happenings that often go unnoticed.
+            Expansion to more countries is underway.
+          </p>
+          <div class="project-actions">
+            <a href="https://festpin.com" target="_blank" rel="noopener" class="btn-site">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              festpin.com
+            </a>
+            <div class="store-row">
+              <a href="https://apps.apple.com/app/id6803428293" target="_blank" rel="noopener" class="store-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/>
+                </svg>
+                <div class="store-btn-text">
+                  <span class="store-btn-sub">Download on the</span>
+                  <span class="store-btn-name">App Store</span>
+                </div>
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.festapp.fest_app" target="_blank" rel="noopener" class="store-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M3.18 23.76A1.98 1.98 0 012 22V2a1.98 1.98 0 011.18-1.76l12.54 11.76zm13.2-12.36L4.02.54 17.22 8.1l-2.73 2.73-2.73-2.73zm2.02 1.28a1.5 1.5 0 010 2.64l-2.54 1.47-3-3 3-3zm-2.54 4.11L4.02 23.46 16.38 15.9l-2.52-2.52 2.52-2.52z"/>
+                </svg>
+                <div class="store-btn-text">
+                  <span class="store-btn-sub">Get it on</span>
+                  <span class="store-btn-name">Google Play</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-visual vis-fest">
+          <div class="blob blob-fest-1"></div>
+          <div class="blob blob-fest-2"></div>
+          <div class="chip chip-tl">
+            <strong>🎵 Jazz Night</strong>
+            Tonight · Free entry
+          </div>
+          <div class="phone">
+            <div class="phone-screen fest-screen">
+              <div class="fs-map">
+                <div class="fs-map-grid"></div>
+                <div class="fs-pin fs-pin-a"></div>
+                <div class="fs-pin fs-pin-b"></div>
+                <div class="fs-pin fs-pin-c"></div>
+                <div class="fs-pin fs-pin-d"></div>
+              </div>
+              <div class="fs-card">
+                <div class="fs-row" style="width:65%"></div>
+                <div class="fs-row" style="width:45%;background:rgba(255,255,255,0.08)"></div>
+              </div>
+              <div class="fs-card" style="background:rgba(99,102,241,0.1)">
+                <div class="fs-row" style="width:72%"></div>
+                <div class="fs-row" style="width:38%;background:rgba(255,255,255,0.08)"></div>
+              </div>
+              <div class="fs-card" style="background:rgba(244,63,94,0.08)">
+                <div class="fs-row" style="width:58%"></div>
+                <div class="fs-row" style="width:30%;background:rgba(255,255,255,0.08)"></div>
+              </div>
+            </div>
+          </div>
+          <div class="chip chip-br chip-accent">
+            <strong>53 events</strong>
+            near you · this week
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="full-divider"></div>
+
+  <!-- ══════════════════════ CONTACT ══════════════════════ -->
+  <div class="contact-band" id="contact">
+    <div class="contact-inner">
+      <p class="section-eyebrow" style="text-align:center">Contact</p>
+      <h2 class="contact-title">
+        Let's build something<br>
+        <span class="gradient-text">together.</span>
+      </h2>
+      <p class="contact-sub">
+        Have a project idea or looking for a development partner?
+        We're a small team — you'll talk directly to the person building your product.
+      </p>
+      <a href="mailto:michal.salwin@gmail.com" class="email-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        michal.salwin@gmail.com
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ FOOTER ══════════════════════ -->
+  <footer>
+    <p>© 2025 <a href="/">softhaus.dev</a> — Crafted with care in Poland.</p>
+  </footer>
+
+  <script>
+    // Scroll-in animation for project cards
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('[data-observe]').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
