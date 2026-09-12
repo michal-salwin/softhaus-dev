@@ -1,0 +1,38 @@
+# Deploy softhaus.dev na Cloudflare — Worker „softhaus-dev-worker"
+# typu Static Assets, custom domain https://softhaus.dev.
+#
+# Tak samo jak w fest-app/deploy-landing: wrangler działa przez GitHub Actions
+# bo lokalny wrangler timeoutuje przez firmowy TLS (ErgoHestia/Forcepoint).
+#
+# Uruchamianie:
+#   - automatycznie: push na `main`
+#   - ręcznie: zakładka Actions → „deploy" → Run workflow
+#
+# Sekrety (Settings → Secrets and variables → Actions):
+#   CLOUDFLARE_API_TOKEN   — token z uprawnieniem „Workers Scripts: Edit"
+#   CLOUDFLARE_ACCOUNT_ID  — ee350773d8825fb8caa4587ff461d6c5
+name: deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy Worker (static assets)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4.125.0"
+          command: deploy
