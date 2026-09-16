@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Safe Game — zrzut sklepowy 3/3: ekran wygranej. 1080×1920.
+     Odwzorowuje realny UI: otwarte drzwi sejfu z tarczą, gwiazdki, łup (klucze),
+     statystyki i „następny poziom". Paleta z lib/config/theme.dart.
+     Render: scripts/render_play_graphics.py. -->
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="0.5" cy="0.34" r="0.95">
+      <stop offset="0%" stop-color="#12261F"/>
+      <stop offset="60%" stop-color="#101C28"/>
+      <stop offset="100%" stop-color="#05090E"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#37E0C8" stop-opacity="0"/>
+      <stop offset="82%" stop-color="#37E0C8" stop-opacity="0"/>
+      <stop offset="92%" stop-color="#37E0C8" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#37E0C8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="metal" cx="0.36" cy="0.36" r="0.75">
+      <stop offset="0%" stop-color="#66788C"/>
+      <stop offset="100%" stop-color="#2B3742"/>
+    </radialGradient>
+    <radialGradient id="knob" cx="0.35" cy="0.32" r="0.8">
+      <stop offset="0%" stop-color="#7E90A2"/>
+      <stop offset="100%" stop-color="#2B3742"/>
+    </radialGradient>
+    <radialGradient id="plate" cx="0.4" cy="0.4" r="0.72">
+      <stop offset="0%" stop-color="#2B3742"/>
+      <stop offset="100%" stop-color="#05090E"/>
+    </radialGradient>
+    <radialGradient id="cavity" cx="0.5" cy="0.4" r="0.7">
+      <stop offset="0%" stop-color="#1C3A33"/>
+      <stop offset="100%" stop-color="#04100C"/>
+    </radialGradient>
+    <line id="notch" x1="512" y1="187" x2="512" y2="230"/>
+    <g id="arm">
+      <line x1="512" y1="512" x2="512" y2="347"
+            stroke="#5E6F80" stroke-width="30" stroke-linecap="round"/>
+      <circle cx="512" cy="347" r="34" fill="url(#knob)"/>
+      <circle cx="512" cy="347" r="34" fill="none" stroke="#8DA0B4" stroke-width="4"/>
+    </g>
+    <!-- Rysowany klucz (emoji się nie renderuje w cairosvg). Bazowo ~58px szeroki. -->
+    <g id="key" fill="#F5C451">
+      <circle cx="0" cy="0" r="12" fill="none" stroke="#F5C451" stroke-width="6"/>
+      <rect x="8" y="-3" width="36" height="6"/>
+      <rect x="32" y="3" width="6" height="11"/>
+      <rect x="42" y="3" width="6" height="15"/>
+    </g>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+
+  <!-- Tytuł -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <text x="540" y="270" fill="#37E0C8" font-size="88" font-weight="800"
+          letter-spacing="2">SAFE OPENED!</text>
+    <text x="540" y="336" fill="#8598AB" font-size="40" font-weight="500">Vault cracked</text>
+  </g>
+
+  <!-- Gwiazdki -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle" font-size="90">
+    <text x="410" y="470" fill="#F5C451">★</text>
+    <text x="540" y="470" fill="#F5C451">★</text>
+    <text x="670" y="470" fill="#F5C451">★</text>
+  </g>
+
+  <!-- Otwarty sejf: wnęka + odchylone drzwi z tarczą -->
+  <g transform="translate(540 830)">
+    <!-- korpus/wnęka -->
+    <rect x="-300" y="-300" width="600" height="600" rx="60" fill="#2B3742"/>
+    <rect x="-300" y="-300" width="600" height="600" rx="60" fill="none" stroke="#0A121B" stroke-width="8"/>
+    <rect x="-240" y="-240" width="480" height="480" rx="40" fill="url(#cavity)"/>
+    <circle cx="0" cy="0" r="150" fill="url(#glow)"/>
+    <!-- drzwi odchylone w lewo (perspektywa: zwężone) -->
+    <g transform="translate(-300 0)">
+      <path d="M 0 -300 L -150 -250 L -150 250 L 0 300 Z" fill="#2B3742" stroke="#0A121B" stroke-width="6"/>
+      <!-- mini-tarcza na drzwiach -->
+      <g transform="translate(-75 0) scale(0.30) translate(-512 -512)">
+        <circle cx="512" cy="512" r="353" fill="url(#metal)"/>
+        <circle cx="512" cy="512" r="346" fill="none" stroke="#37E0C8" stroke-width="14"/>
+        <circle cx="512" cy="512" r="219" fill="url(#plate)"/>
+        <use href="#arm" transform="rotate(20 512 512)"/>
+        <use href="#arm" transform="rotate(80 512 512)"/>
+        <use href="#arm" transform="rotate(140 512 512)"/>
+        <use href="#arm" transform="rotate(200 512 512)"/>
+        <use href="#arm" transform="rotate(260 512 512)"/>
+        <use href="#arm" transform="rotate(320 512 512)"/>
+        <circle cx="512" cy="512" r="58" fill="url(#metal)"/>
+        <circle cx="512" cy="512" r="20" fill="#37E0C8"/>
+      </g>
+    </g>
+    <!-- łup w środku: klucze (duży rysowany klucz) -->
+    <use href="#key" transform="translate(-90 0) scale(3.4)"/>
+  </g>
+
+  <!-- Łup -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <rect x="340" y="1200" width="400" height="96" rx="28" fill="#14202D" stroke="#F5C451" stroke-width="3"/>
+    <text x="390" y="1264" fill="#F5C451" font-size="48" font-weight="800" text-anchor="start">Loot  +3</text>
+    <use href="#key" transform="translate(652 1248) scale(1.1)"/>
+  </g>
+
+  <!-- Statystyki -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <rect x="90" y="1340" width="280" height="150" rx="28" fill="#14202D"/>
+    <text x="230" y="1408" fill="#8598AB" font-size="34">Attempts</text>
+    <text x="230" y="1466" fill="#E9F0F7" font-size="54" font-weight="800">4</text>
+    <rect x="400" y="1340" width="280" height="150" rx="28" fill="#14202D"/>
+    <text x="540" y="1408" fill="#8598AB" font-size="34">Time</text>
+    <text x="540" y="1466" fill="#E9F0F7" font-size="54" font-weight="800">1:12</text>
+    <rect x="710" y="1340" width="280" height="150" rx="28" fill="#14202D"/>
+    <text x="850" y="1408" fill="#8598AB" font-size="34">Par</text>
+    <text x="850" y="1466" fill="#E9F0F7" font-size="54" font-weight="800">6</text>
+  </g>
+
+  <!-- Przyciski -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <rect x="90" y="1560" width="900" height="132" rx="30" fill="#37E0C8"/>
+    <text x="540" y="1646" fill="#05121A" font-size="52" font-weight="800">Next level</text>
+    <rect x="90" y="1720" width="900" height="120" rx="30" fill="#14202D" stroke="#2B3742" stroke-width="2"/>
+    <text x="540" y="1796" fill="#E9F0F7" font-size="44" font-weight="600">Menu</text>
+  </g>
+</svg>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Safe Game — zrzut sklepowy 2/3: ekran gry. 1080×1920.
+     Odwzorowuje realny UI: nagłówek (nr sejfu, klucze, „?"), tarcza,
+     historia prób z pinezkami feedbacku 🟢/🟡/⚪ (pegHit/pegClose/pegMiss).
+     Paleta z lib/config/theme.dart. Render: scripts/render_play_graphics.py. -->
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="0.5" cy="0.3" r="0.95">
+      <stop offset="0%" stop-color="#101C28"/>
+      <stop offset="100%" stop-color="#05090E"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#37E0C8" stop-opacity="0"/>
+      <stop offset="86%" stop-color="#37E0C8" stop-opacity="0"/>
+      <stop offset="94%" stop-color="#37E0C8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#37E0C8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="metal" cx="0.36" cy="0.36" r="0.75">
+      <stop offset="0%" stop-color="#66788C"/>
+      <stop offset="100%" stop-color="#2B3742"/>
+    </radialGradient>
+    <radialGradient id="knob" cx="0.35" cy="0.32" r="0.8">
+      <stop offset="0%" stop-color="#7E90A2"/>
+      <stop offset="100%" stop-color="#2B3742"/>
+    </radialGradient>
+    <radialGradient id="plate" cx="0.4" cy="0.4" r="0.72">
+      <stop offset="0%" stop-color="#2B3742"/>
+      <stop offset="100%" stop-color="#05090E"/>
+    </radialGradient>
+    <line id="notch" x1="512" y1="187" x2="512" y2="230"/>
+    <g id="arm">
+      <line x1="512" y1="512" x2="512" y2="347"
+            stroke="#5E6F80" stroke-width="30" stroke-linecap="round"/>
+      <circle cx="512" cy="347" r="34" fill="url(#knob)"/>
+      <circle cx="512" cy="347" r="34" fill="none" stroke="#8DA0B4" stroke-width="4"/>
+    </g>
+    <!-- Rysowany klucz (emoji się nie renderuje w cairosvg). Bazowo ~58px szeroki. -->
+    <g id="key" fill="#F5C451">
+      <circle cx="0" cy="0" r="12" fill="none" stroke="#F5C451" stroke-width="6"/>
+      <rect x="8" y="-3" width="36" height="6"/>
+      <rect x="32" y="3" width="6" height="11"/>
+      <rect x="42" y="3" width="6" height="15"/>
+    </g>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+
+  <!-- Nagłówek -->
+  <g font-family="DejaVu Sans, Arial, sans-serif">
+    <text x="60" y="150" fill="#8598AB" font-size="40" font-weight="400">‹</text>
+    <text x="120" y="150" fill="#E9F0F7" font-size="46" font-weight="700">Safe #7</text>
+    <!-- klucze -->
+    <rect x="700" y="108" width="150" height="66" rx="20" fill="#14202D"/>
+    <use href="#key" transform="translate(728 141)"/>
+    <text x="812" y="155" fill="#F5C451" font-size="42" font-weight="700" text-anchor="middle">3</text>
+    <!-- „?" pomoc -->
+    <circle cx="912" cy="141" r="34" fill="#14202D" stroke="#37E0C8" stroke-width="3"/>
+    <text x="912" y="156" fill="#37E0C8" font-size="42" font-weight="800" text-anchor="middle">?</text>
+    <!-- dźwięk -->
+    <text x="1000" y="156" fill="#8598AB" font-size="40" text-anchor="middle">♪</text>
+    <text x="60" y="230" fill="#8598AB" font-size="34" font-weight="400">Basement · Attempts: 3/8</text>
+  </g>
+
+  <!-- Tarcza -->
+  <g transform="translate(540 640) scale(0.62) translate(-512 -512)">
+    <circle cx="512" cy="512" r="380" fill="url(#glow)"/>
+    <circle cx="512" cy="512" r="353" fill="url(#metal)"/>
+    <circle cx="512" cy="512" r="346" fill="none" stroke="#37E0C8" stroke-width="12"/>
+    <g stroke="#05090E" stroke-opacity="0.65" stroke-width="11" stroke-linecap="round">
+      <use href="#notch" transform="rotate(0 512 512)"/>
+      <use href="#notch" transform="rotate(15 512 512)"/>
+      <use href="#notch" transform="rotate(30 512 512)"/>
+      <use href="#notch" transform="rotate(45 512 512)"/>
+      <use href="#notch" transform="rotate(60 512 512)"/>
+      <use href="#notch" transform="rotate(75 512 512)"/>
+      <use href="#notch" transform="rotate(90 512 512)"/>
+      <use href="#notch" transform="rotate(105 512 512)"/>
+      <use href="#notch" transform="rotate(120 512 512)"/>
+      <use href="#notch" transform="rotate(135 512 512)"/>
+      <use href="#notch" transform="rotate(150 512 512)"/>
+      <use href="#notch" transform="rotate(165 512 512)"/>
+      <use href="#notch" transform="rotate(180 512 512)"/>
+      <use href="#notch" transform="rotate(195 512 512)"/>
+      <use href="#notch" transform="rotate(210 512 512)"/>
+      <use href="#notch" transform="rotate(225 512 512)"/>
+      <use href="#notch" transform="rotate(240 512 512)"/>
+      <use href="#notch" transform="rotate(255 512 512)"/>
+      <use href="#notch" transform="rotate(270 512 512)"/>
+      <use href="#notch" transform="rotate(285 512 512)"/>
+      <use href="#notch" transform="rotate(300 512 512)"/>
+      <use href="#notch" transform="rotate(315 512 512)"/>
+      <use href="#notch" transform="rotate(330 512 512)"/>
+      <use href="#notch" transform="rotate(345 512 512)"/>
+    </g>
+    <circle cx="512" cy="512" r="219" fill="url(#plate)"/>
+    <g>
+      <use href="#arm" transform="rotate(0 512 512)"/>
+      <use href="#arm" transform="rotate(60 512 512)"/>
+      <use href="#arm" transform="rotate(120 512 512)"/>
+      <use href="#arm" transform="rotate(180 512 512)"/>
+      <use href="#arm" transform="rotate(240 512 512)"/>
+      <use href="#arm" transform="rotate(300 512 512)"/>
+      <circle cx="512" cy="512" r="58" fill="url(#metal)"/>
+      <circle cx="512" cy="512" r="58" fill="none" stroke="#8DA0B4" stroke-width="5"/>
+      <circle cx="512" cy="512" r="20" fill="#37E0C8"/>
+    </g>
+  </g>
+
+  <!-- Historia prób z feedbackiem -->
+  <g font-family="DejaVu Sans, Arial, sans-serif">
+    <text x="60" y="1120" fill="#8598AB" font-size="34" font-weight="600"
+          letter-spacing="2">ATTEMPT HISTORY</text>
+
+    <!-- wiersz 1: 3 1 8  →  🟢 ⚪ 🟡 -->
+    <g transform="translate(0 1160)">
+      <rect x="60" y="0" width="960" height="120" rx="24" fill="#14202D" stroke="#0A121B" stroke-width="2"/>
+      <text x="120" y="78" fill="#E9F0F7" font-size="54" font-weight="700" letter-spacing="18">3 1 8</text>
+      <circle cx="760" cy="60" r="26" fill="#37E0C8"/>
+      <circle cx="835" cy="60" r="26" fill="#3A4A5C"/>
+      <circle cx="910" cy="60" r="26" fill="#F5C451"/>
+    </g>
+
+    <!-- wiersz 2: 5 0 2  →  🟡 🟢 ⚪ -->
+    <g transform="translate(0 1300)">
+      <rect x="60" y="0" width="960" height="120" rx="24" fill="#14202D" stroke="#0A121B" stroke-width="2"/>
+      <text x="120" y="78" fill="#E9F0F7" font-size="54" font-weight="700" letter-spacing="18">5 0 2</text>
+      <circle cx="760" cy="60" r="26" fill="#F5C451"/>
+      <circle cx="835" cy="60" r="26" fill="#37E0C8"/>
+      <circle cx="910" cy="60" r="26" fill="#3A4A5C"/>
+    </g>
+
+    <!-- wiersz 3: 4 0 9  →  🟢 🟢 🟡 (blisko!) -->
+    <g transform="translate(0 1440)">
+      <rect x="60" y="0" width="960" height="120" rx="24" fill="#14202D" stroke="#37E0C8" stroke-width="3"/>
+      <text x="120" y="78" fill="#E9F0F7" font-size="54" font-weight="700" letter-spacing="18">4 0 9</text>
+      <circle cx="760" cy="60" r="26" fill="#37E0C8"/>
+      <circle cx="835" cy="60" r="26" fill="#37E0C8"/>
+      <circle cx="910" cy="60" r="26" fill="#F5C451"/>
+    </g>
+  </g>
+
+  <!-- Legenda feedbacku -->
+  <g font-family="DejaVu Sans, Arial, sans-serif">
+    <circle cx="90" cy="1660" r="20" fill="#37E0C8"/>
+    <text x="122" y="1674" fill="#8598AB" font-size="32">in place</text>
+    <circle cx="390" cy="1660" r="20" fill="#F5C451"/>
+    <text x="422" y="1674" fill="#8598AB" font-size="32">in code</text>
+    <circle cx="690" cy="1660" r="20" fill="#3A4A5C"/>
+    <text x="722" y="1674" fill="#8598AB" font-size="32">not in code</text>
+  </g>
+
+  <!-- Pasek wprowadzania -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <rect x="60" y="1740" width="700" height="120" rx="28" fill="#0A121B" stroke="#2B3742" stroke-width="2"/>
+    <text x="410" y="1815" fill="#8598AB" font-size="40">Spin the drums to set the code</text>
+    <rect x="790" y="1740" width="230" height="120" rx="28" fill="#37E0C8"/>
+    <text x="905" y="1815" fill="#05121A" font-size="44" font-weight="800">Check</text>
+  </g>
+</svg>

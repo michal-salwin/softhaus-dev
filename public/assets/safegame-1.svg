@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Safe Game — zrzut sklepowy 1/3: ekran startowy. 1080×1920.
+     Odwzorowuje realny UI (motyw „modern"): tarcza sejfu, tytuł, menu.
+     Paleta z lib/config/theme.dart. Render: scripts/render_play_graphics.py. -->
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="0.5" cy="0.36" r="0.95">
+      <stop offset="0%" stop-color="#101C28"/>
+      <stop offset="100%" stop-color="#05090E"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#37E0C8" stop-opacity="0"/>
+      <stop offset="86%" stop-color="#37E0C8" stop-opacity="0"/>
+      <stop offset="94%" stop-color="#37E0C8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#37E0C8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="metal" cx="0.36" cy="0.36" r="0.75">
+      <stop offset="0%" stop-color="#66788C"/>
+      <stop offset="100%" stop-color="#2B3742"/>
+    </radialGradient>
+    <radialGradient id="knob" cx="0.35" cy="0.32" r="0.8">
+      <stop offset="0%" stop-color="#7E90A2"/>
+      <stop offset="100%" stop-color="#2B3742"/>
+    </radialGradient>
+    <radialGradient id="plate" cx="0.4" cy="0.4" r="0.72">
+      <stop offset="0%" stop-color="#2B3742"/>
+      <stop offset="100%" stop-color="#05090E"/>
+    </radialGradient>
+    <line id="notch" x1="512" y1="187" x2="512" y2="230"/>
+    <g id="arm">
+      <line x1="512" y1="512" x2="512" y2="347"
+            stroke="#5E6F80" stroke-width="30" stroke-linecap="round"/>
+      <circle cx="512" cy="347" r="34" fill="url(#knob)"/>
+      <circle cx="512" cy="347" r="34" fill="none" stroke="#8DA0B4" stroke-width="4"/>
+    </g>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+
+  <!-- Tytuł -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <text x="540" y="300" fill="#E9F0F7" font-size="104" font-weight="800"
+          letter-spacing="3">SAFE GAME</text>
+    <text x="540" y="372" fill="#37E0C8" font-size="40" font-weight="600">
+      Crack the code. Open the safe.</text>
+  </g>
+
+  <!-- Tarcza (środek ekranu) -->
+  <g transform="translate(540 830) scale(0.72) translate(-512 -512)">
+    <circle cx="512" cy="512" r="380" fill="url(#glow)"/>
+    <circle cx="512" cy="512" r="353" fill="url(#metal)"/>
+    <circle cx="512" cy="512" r="346" fill="none" stroke="#37E0C8" stroke-width="12"/>
+    <g stroke="#05090E" stroke-opacity="0.65" stroke-width="11" stroke-linecap="round">
+      <use href="#notch" transform="rotate(0 512 512)"/>
+      <use href="#notch" transform="rotate(15 512 512)"/>
+      <use href="#notch" transform="rotate(30 512 512)"/>
+      <use href="#notch" transform="rotate(45 512 512)"/>
+      <use href="#notch" transform="rotate(60 512 512)"/>
+      <use href="#notch" transform="rotate(75 512 512)"/>
+      <use href="#notch" transform="rotate(90 512 512)"/>
+      <use href="#notch" transform="rotate(105 512 512)"/>
+      <use href="#notch" transform="rotate(120 512 512)"/>
+      <use href="#notch" transform="rotate(135 512 512)"/>
+      <use href="#notch" transform="rotate(150 512 512)"/>
+      <use href="#notch" transform="rotate(165 512 512)"/>
+      <use href="#notch" transform="rotate(180 512 512)"/>
+      <use href="#notch" transform="rotate(195 512 512)"/>
+      <use href="#notch" transform="rotate(210 512 512)"/>
+      <use href="#notch" transform="rotate(225 512 512)"/>
+      <use href="#notch" transform="rotate(240 512 512)"/>
+      <use href="#notch" transform="rotate(255 512 512)"/>
+      <use href="#notch" transform="rotate(270 512 512)"/>
+      <use href="#notch" transform="rotate(285 512 512)"/>
+      <use href="#notch" transform="rotate(300 512 512)"/>
+      <use href="#notch" transform="rotate(315 512 512)"/>
+      <use href="#notch" transform="rotate(330 512 512)"/>
+      <use href="#notch" transform="rotate(345 512 512)"/>
+    </g>
+    <circle cx="512" cy="512" r="219" fill="url(#plate)"/>
+    <g>
+      <use href="#arm" transform="rotate(0 512 512)"/>
+      <use href="#arm" transform="rotate(60 512 512)"/>
+      <use href="#arm" transform="rotate(120 512 512)"/>
+      <use href="#arm" transform="rotate(180 512 512)"/>
+      <use href="#arm" transform="rotate(240 512 512)"/>
+      <use href="#arm" transform="rotate(300 512 512)"/>
+      <circle cx="512" cy="512" r="58" fill="url(#metal)"/>
+      <circle cx="512" cy="512" r="58" fill="none" stroke="#8DA0B4" stroke-width="5"/>
+      <circle cx="512" cy="512" r="20" fill="#37E0C8"/>
+    </g>
+  </g>
+
+  <!-- Przycisk główny „Play" -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <rect x="240" y="1230" width="600" height="132" rx="30" fill="#37E0C8"/>
+    <text x="540" y="1316" fill="#05121A" font-size="52" font-weight="800">PLAY</text>
+  </g>
+
+  <!-- Kafelki menu -->
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <rect x="240" y="1408" width="288" height="118" rx="24" fill="#14202D" stroke="#0A121B" stroke-width="2"/>
+    <text x="384" y="1480" fill="#E9F0F7" font-size="38" font-weight="600">Continue</text>
+    <rect x="552" y="1408" width="288" height="118" rx="24" fill="#14202D" stroke="#0A121B" stroke-width="2"/>
+    <text x="696" y="1480" fill="#E9F0F7" font-size="38" font-weight="600">Levels</text>
+    <rect x="240" y="1550" width="288" height="118" rx="24" fill="#14202D" stroke="#0A121B" stroke-width="2"/>
+    <text x="384" y="1622" fill="#E9F0F7" font-size="38" font-weight="600">Daily</text>
+    <rect x="552" y="1550" width="288" height="118" rx="24" fill="#14202D" stroke="#0A121B" stroke-width="2"/>
+    <text x="696" y="1622" fill="#E9F0F7" font-size="38" font-weight="600">Settings</text>
+  </g>
+</svg>
