@@ -1,5 +1,5 @@
-# Deploy softhaus.dev na Cloudflare — Worker „softhaus-dev-worker"
-# typu Static Assets, custom domain https://softhaus.dev.
+# Deploy finecraft.dev na Cloudflare — Worker „finecraft-dev-worker"
+# typu Static Assets, custom domain https://finecraft.dev.
 #
 # Tak samo jak w fest-app/deploy-landing: wrangler działa przez GitHub Actions
 # bo lokalny wrangler timeoutuje przez firmowy TLS (ErgoHestia/Forcepoint).
